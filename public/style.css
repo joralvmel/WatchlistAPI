@@ -1,0 +1,381 @@
+/* Footer styles */
+footer {
+  font-size: 14px;
+}
+
+/* Header styles */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; 
+}
+
+/* Content styles */
+body {
+  padding-top: 70px;
+}
+
+.content {
+  margin-top: 70px;
+  padding: 20px;
+}
+
+/* To-Do List navigation styles */
+.todo-nav {
+  margin-top: 10px;
+  border-bottom: 1px solid #535353;
+}
+
+/* To-Do List styles */
+.todo-list {
+  margin: 0;
+}
+
+.todo-list .todo-item {
+  position: relative;
+  padding: 15px;
+  border-radius: 0;
+  border-bottom: 1px solid #535353;
+}
+
+/* Card styles */
+.card {
+  padding: 25px;
+  margin-bottom: 20px;
+  height: 70vh;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  border: initial;
+  background: #2b3035;
+  border-radius: calc(1em - 1px);
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Delete button styles */
+.delete-todo-item {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  background-color: transparent;
+  color: red;
+  border: none;
+  width: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+/* Checkbox styles */
+input[type="checkbox"] {
+  display: none;
+  visibility: hidden;
+}
+
+.cbx {
+  margin: auto;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.cbx span {
+  display: inline-block;
+  vertical-align: middle;
+  transform: translate3d(0, 0, 0);
+}
+
+.cbx span:first-child {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  transform: scale(1);
+  vertical-align: middle;
+  border: 1px solid #9098a9;
+  transition: all 0.2s ease;
+}
+
+.cbx span:first-child svg {
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 16px;
+  stroke-dashoffset: 16px;
+  transition: all 0.3s ease;
+  transition-delay: 0.1s;
+  transform: translate3d(0, 0, 0);
+}
+
+.cbx span:first-child:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: #506eec;
+  display: block;
+  transform: scale(0);
+  opacity: 1;
+  border-radius: 50%;
+}
+
+.cbx span:last-child {
+  padding-left: 8px;
+}
+
+.cbx:hover span:first-child {
+  border-color: #506eec;
+}
+
+/* Checkbox checked styles */
+.inp-cbx:checked + .cbx span:first-child {
+  background: #506eec;
+  border-color: #506eec;
+  animation: wave-46 0.4s ease;
+}
+
+.inp-cbx:checked + .cbx span:first-child svg {
+  stroke-dashoffset: 0;
+}
+
+.inp-cbx:checked + .cbx span:first-child:before {
+  transform: scale(3.5);
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+/* Completed task text styles */
+.task-name.completed {
+  text-decoration: line-through;
+}
+
+/* Icon styles */
+.icon {
+  height: 25px;
+  filter: invert(100%);
+}
+
+/* Active navigation link styles */
+.active-link {
+  font-weight: bold;
+  color: white;
+}
+
+/* Card header styles */
+.card-header {
+  background: #2b3035;
+}
+
+/* Navbar link styles */
+.navbar .navbar-nav .nav-item .nav-link {
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.navbar .navbar-nav .nav-item .nav-link:hover {
+  background-color: #4e4e4e;
+  color: #ffffff;
+}
+
+/* Primary button styles */
+.btn-primary {
+  background-color: #535353;
+  border-color: #535353;
+  color: #fff;
+  font-weight: bold;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #3b64e6;
+  border-color: #3b64e6;
+  color: #fff;
+}
+
+/* CSS for movie card */
+.movie-card {
+  position: relative;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  height: auto; 
+  overflow: hidden;
+}
+
+.movie-card .additional-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.movie-card:hover .additional-info {
+  display: flex;
+  opacity: 1;
+}
+
+/* Add an overlay pseudo-element for blur and darken effect */
+.movie-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(5px);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Make the overlay darker while hovering */
+.movie-card:hover::before {
+  background-color: rgba(0, 0, 0, 1); 
+  opacity: 1; 
+}
+
+/* Add a border and box shadow on hover */
+.movie-card:hover {
+  border: 1px solid #ccc; 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+}
+
+/* Apply a darken effect to the image */
+.movie-card .card-image img {
+  transition: filter 0.3s ease; 
+}
+
+.movie-card:hover .card-image img {
+  filter: brightness(0.4); 
+}
+
+/* Fixed filter styles */
+.fixed-filter {
+  position: fixed;
+  top: 70px;
+  z-index: 1000;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* CSS for horizontal scrolling with 4 columns */
+.horizontal-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  margin-bottom: 20px; 
+}
+
+.horizontal-scroll .col-md-3 {
+  flex: 0 0 calc(25% - 10px);
+  margin-right: 10px; 
+}
+
+/* Ensure the last item doesn't have a right margin */
+.horizontal-scroll .col-md-3:last-child {
+  margin-right: 0;
+}
+
+/* Custom CSS for reduced image size */
+.reduced-image {
+  max-width: 300px;
+  height: auto; 
+}
+
+/* Cursive genre styles */
+.cursive-genre {
+  font-family: cursive;
+  font-size: 14px; 
+  color: #888; 
+  margin-top: 5px; 
+}
+
+/* Trailer container styles */
+.trailer-container {
+  max-width: 560px; 
+  margin: 0 auto;
+}
+
+/* Cast section styles */
+.cast-section {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Cast member styles */
+.cast-member {
+  flex: 1 1 calc(33.33% - 20px); 
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+/* Actor's name styles */
+.actor-name {
+  font-weight: bold;
+}
+
+/* Character's name styles */
+.character-name {
+  font-style: italic;
+}
+
+/* Buttons section styles */
+.buttons-section {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Watch trailer button styles */
+.btn-watch-trailer {
+  flex: 1;
+}
+
+/* Add to watchlist button styles */
+.btn-add-to-watchlist {
+  flex: 1;
+  margin-right: 18px;
+}
+
+/* Seasons table styles */
+.seasons-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.seasons-table th, .seasons-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 5px; 
+  text-align: center; 
+  vertical-align: middle; 
+}
+
+/* Season image styles */
+.season-image {
+  width: 100px; 
+  height: 150px; 
+  object-fit: cover; 
+}

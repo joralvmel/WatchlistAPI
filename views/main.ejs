@@ -1,0 +1,82 @@
+<div class="container py-5 my-4">
+    <!-- Trending Movies -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Trending Movies</h2>
+        </div>
+        <div class="horizontal-scroll">
+            <% if (trendingMovies && trendingMovies.length > 0) { %>
+            <% trendingMovies.slice(0, 10).forEach(movie => { %>
+            <div class="col-md-3 mb-4">
+                <!-- Wrap each movie card in a container div -->
+                <div class="movie-card-container">
+                    <a href="/details/movie/<%= movie.id %>">
+                        <div class="card movie-card">
+                            <div class="card-content">
+                                <div class="card-image">
+                                    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/<%=movie['poster_path']%>"
+                                        alt="Image" class="img-fluid">
+                                </div>
+                                <div class="additional-info">
+                                    <h4 class="text-warning p-1"><strong><%=movie['title']%></strong></h4>
+                                    <p class="text-white">Popularity: <strong><%=movie['popularity']%></strong></p>
+                                    <p class="text-white">Votes: <strong><%=movie['vote_average']%></strong></p>
+                                    <p class="text-white">Release: <strong><%=movie['release_date']%></strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <% }); %>
+            <% } else { %>
+            <p>No trending movies found.</p>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Add separation between movies and TV shows -->
+    <div class="my-4"></div>
+
+    <!-- Trending TV Shows -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Trending TV Shows</h2>
+        </div>
+        <div class="horizontal-scroll">
+            <% if (trendingTvShows && trendingTvShows.length > 0) { %>
+            <% trendingTvShows.slice(0, 10).forEach(tvShow => { %>
+            <div class="col-md-3 mb-4">
+                <!-- Wrap each TV show card in a container div -->
+                <div class="movie-card-container">
+                    <a href="/details/tv/<%= tvShow.id %>">
+                        <div class="card movie-card">
+                            <div class="card-content">
+                                <div class="card-image">
+                                    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/<%=tvShow['poster_path']%>"
+                                        alt="Image" class="img-fluid">
+                                </div>
+                                <div class="additional-info">
+                                    <h4 class="text-warning p-1"><strong><%=tvShow['name']%></strong></h4>
+                                    <p class="text-white">Popularity: <strong><%=tvShow['popularity']%></strong></p>
+                                    <p class="text-white">
+                                        Votes: <strong><%= tvShow['vote_average'] || 'N/A' %></strong>
+                                    </p>
+                                    <p class="text-white">
+                                        Release:
+                                        <strong><%= tvShow['first_air_date'] || tvShow['release_date'] || 'N/A' %></strong>
+                                    </p>
+                                    <!-- Add more TV show information as needed -->
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <% }); %>
+            <% } else { %>
+            <p>No trending TV shows found.</p>
+            <% } %>
+        </div>
+    </div>
+</div>

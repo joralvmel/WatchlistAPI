@@ -1,0 +1,26 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-white">
+                <div class="card-body">
+                    <form action="/tasks" method="POST">
+                        <input type="text" class="form-control add-task" name="task" placeholder="New Task...">
+                        <button type="submit" class="btn btn-primary">Add Task</button>
+                    </form>
+                    <ul class="todo-list">
+                        <% tasks.forEach((task, index) => { %>
+                            <li class="todo-item">
+                                <span><%= task %></span>
+                                <a href="/tasks/delete/<%= index %>" class="float-right remove-todo-item"><i class="icon-close"></i></a>
+                            </li>
+                        <% }); %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("partials/footer.ejs") %>

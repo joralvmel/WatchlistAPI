@@ -1,0 +1,102 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container py-5 my-4">
+  <div class="row">
+    <div class="col-md-4">
+      <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/<%= media.poster_path %>" alt="<%= media.title || media.name %>" class="img-fluid reduced-image">
+      <!-- Buttons section -->
+      <div class="buttons-section text-center mt-3">
+        <!-- Button to add to watchlist -->
+        <div class="watchlist-button">
+          <button
+            class="btn btn-primary add-to-watchlist btn-add-to-watchlist"
+            data-media-title="<%= media.title || media.name %>"
+            data-is-movie="<%= mediaType === 'movie' %>">
+            Add to Watchlist
+          </button>
+        </div>
+        <!-- Button to watch trailer on YouTube (displayed conditionally) -->
+        <% if (youtubeUrl) { %>
+          <div class="trailer-button">
+            <a href="<%= youtubeUrl %>" target="_blank" class="btn btn-primary btn-watch-trailer">Watch Trailer</a>
+          </div>
+        <% } %>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <!-- Movie or TV show details -->
+      <h2><%= media.title || media.name %></h2>
+      <p>
+        <%= media.release_date || media.first_air_date %> 
+        <span class="cursive-genre">
+          <%= media.genres && media.genres.length > 0 ? media.genres.map(genre => genre.name).join(', ') : 'N/A' %>
+        </span>
+      </p>
+      <div>
+        <!-- Details section -->
+        <p><strong>Details:</strong>
+        <span><strong>Score:</strong> <%= media.vote_average %></span>
+        <span><strong>Popularity:</strong>  <%= media.popularity %></span>
+        <span><strong>Duration:</strong> 
+        <% if (media.runtime) { %>
+          <%= media.runtime %> minutes
+        <% } else if (media.episode_run_time && media.episode_run_time.length > 0) { %>
+          <%= media.episode_run_time[0] %> minutes (per episode)
+        <% } else { %>
+          N/A
+        <% } %>
+      </span>
+    </p>
+    </div>
+      <!-- Overview -->
+      <p><strong>Overview:</strong> <%= media.overview %></p>
+      <p style="font-size: larger;"><strong>Cast:</strong></p>
+      <!-- Cast section (displayed conditionally) -->
+      <% if (cast && cast.length > 0) { %>
+        <div class="cast-section">
+          <% cast.forEach((actor) => { %>
+            <div class="cast-member">
+              <span class="actor-name"><%= actor.name %></span> as <span class="character-name"><%= actor.character %></span>
+            </div>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <p>Cast information not available.</p>
+      <% } %>
+    </div>
+    <!-- TV show seasons section (displayed conditionally) -->
+    <% if (mediaType === 'tv' && media.seasons && media.seasons.length > 0) { %>
+      <div class="seasons-section">
+        <h3>Seasons:</h3>
+        <!-- Seasons table -->
+        <table class="table table-bordered">
+          <thead class="seasons-table">
+            <tr>
+              <th style="width: 10%;">Image</th>
+              <th style="width: 5%;">Season Number</th>
+              <th style="width: 10%;">Name</th>
+              <th style="width: 70%;">Overview</th>
+              <th style="width: 5%;">Episode Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Loop through TV show seasons -->
+            <% media.seasons.forEach((season) => { %>
+              <tr>
+                <!-- Season image -->
+                <td><img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/<%= season.poster_path %>" alt="<%= season.name %>" class="img-fluid season-image"></td>
+                <!-- Season details -->
+                <td><%= season.season_number %></td>
+                <td><%= season.name %></td>
+                <td><%= season.overview || 'N/A' %></td>
+                <td><%= season.episode_count %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include("partials/footer.ejs") %>

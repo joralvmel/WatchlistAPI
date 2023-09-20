@@ -1,0 +1,60 @@
+<!-- Include the content from the "header.ejs" partial -->
+<%- include("partials/header.ejs") %>
+
+<div class="container py-4 my-4">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    <!-- Display a title for the "TV Shows Watchlist" card -->
+                    <h3 class="card-title">TV Shows Watchlist</h3>
+                </div>
+                <div class="card-body">
+                    <div class="card-body">
+                        <form action="/addTask" method="post" class="add-items d-flex">
+                            <!-- Input field for adding a new TV show with a placeholder -->
+                            <input type="text" name="task" class="form-control todo-list-input" placeholder="New TV Show..." autocomplete="off">
+                            <!-- Button to submit the form for adding a new TV show -->
+                            <button type="submit" class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</button>
+                        </form>
+                        <!-- Navigation links for filtering tasks -->
+                        <ul class="nav nav-pills todo-nav">
+                            <!-- The following links use EJS to dynamically set their href attributes -->
+                            <li role="presentation" class="nav-item all-task active"><a href="/tvshows" class="nav-link">All</a></li>
+                            <li role="presentation" class="nav-item active-task"><a href="/tvshows" class="nav-link">Active</a></li>
+                            <li role="presentation" class="nav-item completed-task"><a href="/tvshows" class="nav-link">Completed</a></li>
+                        </ul>
+                        <div class="todo-list">
+                            <% tasks.forEach((task, index) => { %>
+                                <div class="todo-item todo-item-tvshow" data-task-id="<%= index %>">
+                                    <span class="checkbox-wrapper-46">
+                                        <span class="mr-2 inp-cbx">
+                                            <!-- Checkbox for marking a TV show as completed -->
+                                            <input class="inp-cbx" id="cbx-<%= index %>" type="checkbox" data-task-id="<%= index %>" <% if (task.completed) { %>checked<% } %>>
+                                            <!-- Label for the checkbox -->
+                                            <label class="cbx" for="cbx-<%= index %>">
+                                                <span>
+                                                    <!-- SVG icon for the checkbox -->
+                                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                                    </svg>
+                                                </span>
+                                            </label>
+                                        </span>
+                                    </span>
+                                    <!-- Display the TV show name with conditional styling -->
+                                    <span class="<%= task.completed ? 'completed' : 'active' %> task-name"><%= task.name %></span>
+                                    <!-- Button for deleting a TV show -->
+                                    <button class="btn btn-sm delete-todo-item ml-5"><span class="delete-button-content">x</span></button>
+                                </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include the content from the "footer.ejs" partial -->
+<%- include("partials/footer.ejs") %>

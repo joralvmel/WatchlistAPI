@@ -1,0 +1,76 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container py-5 my-4">
+  <div class="row justify-content-center"> <!-- Center the content -->
+    <div class="col-md-9">
+      <!-- Loop through the results and display them in 4 columns -->
+      <% if (data && data['results'] && data['results'].length > 0) { %>
+        <% let results = data['results']; %>
+        <div class="row">
+          <% for (let i = 0; i < results.length; i++) { %>
+            <% let item = results[i]; %>
+            <% if ((selectedFilter === 'movie' && item['poster_path'] && item['title']) || (selectedFilter === 'tv' && item['poster_path'] && item['name'])) { %>
+              <div class="col-md-3 mb-4"> <!-- Display each item in a 3-column grid -->
+                <!-- Wrap the card with a link to movieDetails -->
+                <a href="/details/<%= selectedFilter %>/<%= item.id %>" class="card movie-card">
+                  <!-- Card content goes here -->
+                  <div class="card-content">
+                    <div class="card-image">
+                      <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/<%= item['poster_path'] %>" alt="Image" class="img-fluid">
+                    </div>
+                    <div class="additional-info">
+                      <h4 class="text-warning p-1"><strong><%= item['title'] || item['name'] %></strong></h4>
+                      <p class="text-white">Popularity: <strong><%= item['popularity'] %></strong></p>
+                      <p class="text-white">Votes: <strong><%= item['vote_average'] %></strong></p>
+                      <p class="text-white">Release: <strong><%= item['release_date'] || item['first_air_date'] %></strong></p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            <% } %>
+          <% } %>
+        </div>
+      <% } else { %>
+        <p>No results found.</p>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="row justify-content-center">
+    <div class="col-md-9">
+      <!-- Display Total Number of Pages -->
+      <p>Total Pages: <%= totalPages %></p>
+
+      <!-- Display Navigation Arrows -->
+      <ul class="pagination justify-content-center">
+        <!-- Previous Page Arrow -->
+        <% if (currentPage > 1) { %>
+          <li class="page-item">
+            <a class="page-link" href="/result?page=<%= currentPage - 1 %>&search=<%= querySearch %>&filter=<%= selectedFilter %>" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+        <% } %>
+
+        <!-- Page Numbers -->
+        <% for (let i = 1; i <= totalPages; i++) { %>
+          <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+            <a class="page-link" href="/result?page=<%= i %>&search=<%= querySearch %>&filter=<%= selectedFilter %>"><%= i %></a>
+          </li>
+        <% } %>
+
+        <!-- Next Page Arrow -->
+        <% if (currentPage < totalPages) { %>
+          <li class="page-item">
+            <a class="page-link" href="/result?page=<%= currentPage + 1 %>&search=<%= querySearch %>&filter=<%= selectedFilter %>" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<%- include("partials/footer.ejs") %>
